@@ -5,22 +5,48 @@
   import bibliography from '../bibliography.json';
 
   defineProps<{ msg: string }>();
+  // console.log('adm', Object.fromEntries(beladmdiv.map(item => [item.name_be, item])));
 
-  console.log('adm', Object.fromEntries(beladmdiv.map(item => [item.name_be, item])));
+  interface IBibItem {
+    title: string,
+    year: string,
+    district: string,
+    region: string,
+    meta: string,
+    type: string,
+  };
 
-  const bib = bibliography;
+  const userinput = ref('');
+  const bib = ref([] as Array<IBibItem>);
+
+
+
+  bib.value = bibliography;
 
   const count = ref(0);
+
+  const inputEvent = () => {
+    if (userinput.value.length > 2) {
+      const re  = new RegExp( userinput.value, 'gi' );
+      bib.value = bibliography.filter(x=> re.test(x.title) );
+    } else {
+      bib.value = bibliography;
+    }
+    // console.log(userinput.value);
+  }
 
 </script>
 
 <template>
 
-  <!-- <h1>{{ msg }}</h1> -->
+  <h2>Бібліяграфія па беларускай мікратапаніміцы</h2>
 
-  <h3>Бібліяграфія па беларускай мікратапаніміцы</h3>
+  <div class="p-field" style="text-align:center;">
+      <InputText id="username1" aria-describedby="username1-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
+      <small id="username1-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
+  </div>
 
-  <div v-for="item in bib" class="p-shadow-1" :key="item.id" style="margin-bottom: 1rem;padding: 5px;">{{item.title}}</div>
+  <div v-for="(item, key) in bib" class="p-shadow-1" :key="key" style="margin-bottom: 1rem;padding: 5px;background: darkred;color:white;">{{item.title}}</div>
 
   <!-- <p>
     Вядзецца распрацоўка праекта...
@@ -31,42 +57,23 @@
      -->
   <hr />
   <p>
-    <small><a href="https://philology.by/" target="_blank"> Philology.BY</a>, 2022</small>
+    ☼ <a href="https://philology.by/" target="_blank">Philology.BY</a>, 2022
   </p>
   <p>
-    <small>Падрыхтоўка дадзеных — Вадзім Шклярык. Лічбавы праект – Аляксей Яскевіч</small>
+    Падрыхтоўка дадзеных — <a href="https://philology.by/shkliaryk" target="_blank">Вадзім Шклярык</a>. Лічбавы праект – <a href="https://yaskevich.com/" target="_blank">Аляксей Яскевіч</a>
   </p>
-
-  <div style="display:none">
-    <p>
-      Recommended IDE setup:
-      <a href="https://code.visualstudio.com/" target="_blank">VSCode</a> +
-      <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-    </p>
-
-    <p>See <code>README.md</code> for more information.</p>
-
-    <p>
-      <a href="https://vitejs.dev/guide/features.html" target="_blank">
-        Vite Docs
-      </a> |
-      <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
-    </p>
-
-    <button type="button" @click="count++">count is: {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test hot module replacement.
-    </p>
-    <Button label="Submit" />
-  </div>
+  <p>
+    <small>
+      Значок «Place Marker» узяты з сайта <a href="https://icons8.com/icon/30622/place-marker" target="_blank">Icons8</a>.
+     </small>
+  </p>
 
 </template>
 
 <style scoped>
 
-  a {
-    color: #42b983;
+  h2, a {
+    color: darkred;
   }
 
   label {
@@ -81,4 +88,7 @@
     color: #304455;
   }
 
+  .p-field * {
+      display: block;
+  }
 </style>
