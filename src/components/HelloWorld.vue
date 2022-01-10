@@ -26,6 +26,8 @@
   const count = ref(0);
 
   const inputEvent = () => {
+    userinput.value = userinput.value.replace(/[^0-9а-яёўіa-z\- ]/gi, '');
+    // console.log(userinput.value);
     if (userinput.value.length > 2) {
       const re  = new RegExp( userinput.value, 'gi' );
       bib.value = bibliography.filter(x=> re.test(x.title) );
@@ -42,8 +44,8 @@
   <h2>Бібліяграфія па беларускай мікратапаніміцы</h2>
 
   <div class="p-field" style="text-align:center;">
-      <InputText id="username1" aria-describedby="username1-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
-      <small id="username1-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
+      <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
+      <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
   </div>
 
   <div v-for="(item, key) in bib" class="p-shadow-1" :key="key" style="margin-bottom: 1rem;padding: 5px;background: darkred;color:white;">{{item.title}}</div>
@@ -60,7 +62,7 @@
     ☼ <a href="https://philology.by/" target="_blank">Philology.BY</a>, 2022
   </p>
   <p>
-    Падрыхтоўка дадзеных — <a href="https://philology.by/shkliaryk" target="_blank">Вадзім Шклярык</a>. Лічбавы праект – <a href="https://yaskevich.com/" target="_blank">Аляксей Яскевіч</a>
+    Падрыхтоўка дадзеных — <a href="https://philology.by/shkliaryk" target="_blank">Вадзім Шклярык</a>. Лічбавы праект — <a href="https://yaskevich.com/" target="_blank">Аляксей Яскевіч</a>.
   </p>
   <p>
     <small>
