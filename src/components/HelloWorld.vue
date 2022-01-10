@@ -4,7 +4,6 @@
   import beladmdiv from '../beladmdiv.json';
   import bibliography from '../bibliography.json';
 
-  defineProps<{ msg: string }>();
   // console.log('adm', Object.fromEntries(beladmdiv.map(item => [item.name_be, item])));
 
   interface IBibItem {
@@ -18,15 +17,10 @@
 
   const userinput = ref('');
   const bib = ref([] as Array<IBibItem>);
-
-
-
   bib.value = bibliography;
 
-  const count = ref(0);
-
   const inputEvent = () => {
-    userinput.value = userinput.value.replace(/[^0-9а-яёўіa-z\- ]/gi, '');
+    userinput.value = userinput.value.replace(/[^'’0-9а-яёўіa-z\- ]/gi, '');
     // console.log(userinput.value);
     if (userinput.value.length > 2) {
       const re  = new RegExp( userinput.value, 'gi' );
@@ -43,12 +37,12 @@
 
   <h2>Бібліяграфія па беларускай мікратапаніміцы</h2>
 
-  <div class="p-field" style="text-align:center;">
-      <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
-      <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
+  <div class="p-field p-mx-auto p-text-center">
+    <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
+    <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
   </div>
 
-  <div v-for="(item, key) in bib" class="p-shadow-1" :key="key" style="margin-bottom: 1rem;padding: 5px;background: darkred;color:white;">{{item.title}}</div>
+  <div v-for="(item, key) in bib" class="p-shadow-1 item" :key="key">{{item.title}}</div>
 
   <!-- <p>
     Вядзецца распрацоўка праекта...
@@ -83,14 +77,15 @@
     font-weight: bold;
   }
 
-  code {
-    background-color: #eee;
-    padding: 2px 4px;
-    border-radius: 4px;
-    color: #304455;
-  }
-
   .p-field * {
       display: block;
   }
+
+  .item {
+    margin-bottom: 1rem;
+    padding: 5px;
+    background: darkred;
+    color:white;
+  }
+
 </style>
