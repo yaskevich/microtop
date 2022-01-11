@@ -1,35 +1,75 @@
 <script setup lang="ts">
 
-  import { ref } from 'vue';
-  import beladmdiv from '../beladmdiv.json';
+  import { ref, reactive } from 'vue';
+  // import beladmdiv from '../beladmdiv.json';
   import bibliography from '../bibliography.json';
 
   // console.log('adm', Object.fromEntries(beladmdiv.map(item => [item.name_be, item])));
 
   interface IBibItem {
-    title: string,
-    year: string,
-    district: string,
-    region: string,
-    meta: string,
-    type: string,
-  };
+    title: string;
+    year: string;
+    district: string;
+    region: string;
+    meta: string;
+    type: string;
+  }
 
-  const userinput = ref('');
+  interface ICascadeChild {
+    name: string;
+    level: number;
+    parent?: boolean;
+  }
+
+  interface ICascadeItem {
+    name: string;
+    level: number;
+    children: Array<ICascadeChild>;
+  }
+
+  // const userinput = ref('');
   const bib = ref([] as Array<IBibItem>);
   bib.value = bibliography;
 
-  const inputEvent = () => {
-    userinput.value = userinput.value.replace(/[^'’0-9а-яёўіa-z\- ]/gi, '');
-    // console.log(userinput.value);
-    if (userinput.value.length > 2) {
-      const re  = new RegExp( userinput.value, 'gi' );
-      bib.value = bibliography.filter(x=> re.test(x.title) );
+  // const inputEvent = () => {
+  //   userinput.value = userinput.value.replace(/[^'’0-9а-яёўіa-z\- ]/gi, '');
+  //   // console.log(userinput.value);
+  //   if (userinput.value.length > 2) {
+  //     const re  = new RegExp( userinput.value, 'gi' );
+  //     bib.value = bibliography.filter(x=> re.test(x.title));
+  //   } else {
+  //     bib.value = bibliography;
+  //   }
+  // }
+
+  const selectedArea = ref('');
+  const admTree = reactive([] as Array<ICascadeItem>);
+
+  for (let item of bibliography) {
+    // console.log(item.region, item.district);
+    const node = admTree.filter(x => x.name === item.region);
+    if (node.length) {
+      const child = node[0]['children'];
+      if (!child.filter(x => x.name === item.district).length) {
+        child.push({ name: item.district, level: 3 } as ICascadeChild);
+      }
     } else {
-      bib.value = bibliography;
+      admTree.push({
+        name: item.region,
+        level: 2,
+        children: [{ name: item.region, level: 2, parent: true }, { name: item.district, level: 3 } as ICascadeChild],
+      } as ICascadeItem);
     }
-    // console.log(userinput.value);
   }
+
+  const processCascadeSelect = (item:any) => {
+    console.log(item);
+    bib.value = bibliography.filter(x => x[item.value?.parent ? 'region' : 'district'] === item.value.name);
+  };
+
+  const renderLabel = (item:ICascadeChild|ICascadeItem) => {
+    return item.name + ' ' + (item.level === 3 ? 'раён' : 'вобласць');
+  };
 
 </script>
 
@@ -37,55 +77,63 @@
 
   <h2>Бібліяграфія па беларускай мікратапаніміцы</h2>
 
-  <div class="p-field p-mx-auto p-text-center">
-    <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
-    <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
+  <!--
+    <div class="p-field p-mx-auto p-text-center">
+        <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
+        <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
+    </div>
+    -->
+  <div class="p-mx-auto p-mb-4">
+    <CascadeSelect v-model="selectedArea"
+                   :options="admTree"
+                   :optionLabel="renderLabel"
+                   :optionGroupChildren="['children']"
+                   
+                   placeholder="Абярыце арэал"
+                   @change="processCascadeSelect">
+      <template #option="slotProps">
+            <div class="country-item">
+                <template v-if="slotProps.option?.parent">
+                    <span>Уся вобласць</span>
+                    <hr style="margin-bottom: -.5rem;" />
+                </template>
+      <template v-else>
+                  <span>{{renderLabel(slotProps.option)}}</span>
+                </template>
+  </div>
+  </template>
+  </CascadeSelect>
   </div>
 
-  <div v-for="(item, key) in bib" class="p-shadow-1 item" :key="key">{{item.title}}</div>
+  <div v-for="(item, key) in bib" class="p-shadow-11 item" :key="key">{{item.title}}</div>
 
-  <!-- <p>
-    Вядзецца распрацоўка праекта...
-    </p>
-    <p>
-    Неўзабаве ўсё будзе!
-    </p>
-     -->
-  <hr />
-  <p>
-    ☼ <a href="https://philology.by/" target="_blank">Philology.BY</a>, 2022
-  </p>
-  <p>
-    Падрыхтоўка дадзеных — <a href="https://philology.by/shkliaryk" target="_blank">Вадзім Шклярык</a>. Лічбавы праект — <a href="https://yaskevich.com/" target="_blank">Аляксей Яскевіч</a>.
-  </p>
-  <p>
-    <small>
-      Значок «Place Marker» узяты з сайта <a href="https://icons8.com/icon/30622/place-marker" target="_blank">Icons8</a>.
-     </small>
-  </p>
+  <!--
+        <p>
+          Вядзецца распрацоўка праекта...
+        </p>
+        <p>
+          Неўзабаве ўсё будзе!
+        </p>
+    -->
 
 </template>
 
 <style scoped>
-
-  h2, a {
-    color: darkred;
-  }
-
+/*
   label {
     margin: 0 0.5em;
     font-weight: bold;
   }
 
   .p-field * {
-      display: block;
+    display: block;
   }
-
+*/
   .item {
     margin-bottom: 1rem;
     padding: 5px;
-    background: darkred;
-    color:white;
+    /* background: darkred;
+        color:white; */
   }
 
 </style>
