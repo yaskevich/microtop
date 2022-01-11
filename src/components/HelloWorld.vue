@@ -78,70 +78,78 @@
   <h2>Бібліяграфія па беларускай мікратапаніміцы</h2>
 
   <!--
-      <div class="p-field p-mx-auto p-text-center">
-          <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
-          <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
-      </div>
-      -->
+          <div class="p-field p-mx-auto p-text-center">
+              <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
+              <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
+          </div>
+          -->
   <div class="p-grid p-mb-4">
-  <div class="p-col p-col-fixed"><Badge :value="bib.length" size="large"></Badge></div>
-    <div class="p-col">
-      <CascadeSelect v-model="selectedArea"
-                     :options="admTree"
-                     :optionLabel="renderLabel"
-                     :optionGroupChildren="['children']"
-                     placeholder="Абярыце арэал"
-                     @change="processCascadeSelect">
-        <template #option="slotProps">
-          <div class="country-item">
-              <template v-if="slotProps.option?.parent">
-                  <span>Уся вобласць</span>
-                  <hr style="margin-bottom: -.5rem;" />
-              </template>
-              <template v-else>
-                <span>{{renderLabel(slotProps.option)}}</span>
-              </template>
-        </div>
-        </template>
-    </CascadeSelect>
+    <div class="p-col p-col-fixed">
+      <Badge :value="bib.length" size="large"></Badge>
+    </div>
+    <div class="p-col p-col-fixed">
+      <div class="p-inputgroup">
+        <CascadeSelect v-model="selectedArea"
+                       :options="admTree"
+                       :optionLabel="renderLabel"
+                       :optionGroupChildren="['children']"
+                       placeholder="Абярыце арэал"
+                       @change="processCascadeSelect">
+          <template #option="slotProps">
+            <div class="country-item">
+                <template v-if="slotProps.option?.parent">
+                    <span>Уся вобласць</span>
+                    <hr style="margin-bottom: -.5rem;" />
+                </template>
+          <template v-else>
+                  <span>{{renderLabel(slotProps.option)}}</span>
+                </template>
+      </div>
+      </template>
+      </CascadeSelect>
+      <Button icon="pi pi-refresh"
+              :class="selectedArea?'p-button-text':'p-d-none'"
+              @click="bib = bibliography;selectedArea = ''" />
+    </div>
   </div>
-  <div class="p-col">
-    <Button :disabled="!selectedArea" label="Ачысціць" class="p-ml-2 p-button-raised p-button-text" @click="bib = bibliography;selectedArea = ''"
-    />
-  </div>
+  <!--
+      <div class="p-col">
+        <Button :disabled="!selectedArea" label="Ачысціць" class="p-ml-2 p-button-raised p-button-text" @click="bib = bibliography;selectedArea = ''" />
+      </div>
+            -->
 
   </div>
 
   <div v-for="(item, key) in bib" class="p-shadow-11 item" :key="key">{{item.title}}</div>
 
   <!--
-          <p>
-            Вядзецца распрацоўка праекта...
-          </p>
-          <p>
-            Неўзабаве ўсё будзе!
-          </p>
-      -->
+              <p>
+                Вядзецца распрацоўка праекта...
+              </p>
+              <p>
+                Неўзабаве ўсё будзе!
+              </p>
+          -->
 
 </template>
 
 <style scoped>
 
   /*
-    label {
-      margin: 0 0.5em;
-      font-weight: bold;
-    }
+        label {
+          margin: 0 0.5em;
+          font-weight: bold;
+        }
 
-    .p-field * {
-      display: block;
-    }
-  */
+        .p-field * {
+          display: block;
+        }
+      */
   .item {
     margin-bottom: 1rem;
     padding: 5px;
     /* background: darkred;
-          color:white; */
+              color:white; */
   }
 
 </style>
