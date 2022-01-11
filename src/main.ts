@@ -4,8 +4,11 @@ import PrimeVue from 'primevue/config';
 import Button from 'primevue/button';
 // import InputText from 'primevue/inputtext';
 import CascadeSelect from 'primevue/cascadeselect';
+import Badge from 'primevue/badge';
+
 const app = createApp(App);
 app.component('Button', Button);
+app.component('Badge', Badge);
 // app.component('InputText', InputText);
 app.component('CascadeSelect', CascadeSelect);
 
