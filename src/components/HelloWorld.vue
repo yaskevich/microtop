@@ -63,7 +63,7 @@
   }
 
   const processCascadeSelect = (item:any) => {
-    console.log(item);
+    // console.log(item);
     bib.value = bibliography.filter(x => x[item.value?.parent ? 'region' : 'district'] === item.value.name);
   };
 
@@ -88,7 +88,7 @@
                    :options="admTree"
                    :optionLabel="renderLabel"
                    :optionGroupChildren="['children']"
-                   
+
                    placeholder="Абярыце арэал"
                    @change="processCascadeSelect">
       <template #option="slotProps">
@@ -103,6 +103,7 @@
   </div>
   </template>
   </CascadeSelect>
+  <Button :disabled="!selectedArea" label="Ачысціць" class="p-ml-2 p-button-raised p-button-text" @click="bib = bibliography"/>
   </div>
 
   <div v-for="(item, key) in bib" class="p-shadow-11 item" :key="key">{{item.title}}</div>
