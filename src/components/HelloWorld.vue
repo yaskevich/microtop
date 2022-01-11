@@ -103,7 +103,7 @@
   </div>
   </template>
   </CascadeSelect>
-  <Button :disabled="!selectedArea" label="Ачысціць" class="p-ml-2 p-button-raised p-button-text" @click="bib = bibliography"/>
+  <Button :disabled="!selectedArea" label="Ачысціць" class="p-ml-2 p-button-raised p-button-text" @click="bib = bibliography;selectedArea = ''"/>
   </div>
 
   <div v-for="(item, key) in bib" class="p-shadow-11 item" :key="key">{{item.title}}</div>
