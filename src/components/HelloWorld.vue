@@ -8,7 +8,7 @@
 
   interface IBibItem {
     title: string;
-    year: string;
+    link: string;
     district: string;
     region: string;
     meta: string;
