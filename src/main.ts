@@ -3,6 +3,7 @@ import App from './App.vue';
 import PrimeVue from 'primevue/config';
 import Button from 'primevue/button';
 // import InputText from 'primevue/inputtext';
+import Tag from 'primevue/tag';
 import CascadeSelect from 'primevue/cascadeselect';
 import Badge from 'primevue/badge';
 import 'primeicons/primeicons.css';
@@ -19,6 +20,7 @@ import "@fontsource/open-sans/700-italic.css" // Bold italic variant.
 const app = createApp(App);
 app.component('Button', Button);
 app.component('Badge', Badge);
+app.component('Tag', Tag);
 // app.component('InputText', InputText);
 app.component('CascadeSelect', CascadeSelect);
 
