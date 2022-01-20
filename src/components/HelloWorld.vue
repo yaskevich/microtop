@@ -120,7 +120,16 @@
 
   </div>
 
-  <div v-for="(item, key) in bib" class="p-shadow-11 item" :key="key">{{item.title}}</div>
+  <div v-for="(item, key) in bib" class="p-shadow-11 item" :key="key"> 
+  <i :class="'pi pi-'+ (item.type==='Кніга'?'book':'file-o')" :title="item.type"></i>
+  {{item.title}}
+  <a v-if="item.link" :href="item.link" style="color:blue;" target="_blank"><i class='pi pi-external-link' title="Спасылка на файл публікацыі"></i></a>
+  <!-- <Tag class="p-ml-2" severity="info" :value="item.type" rounded></Tag> -->
+  <div class="p-ml-2" v-if="item.meta">
+	<small>{{item.meta}}</small>
+  </div>
+	
+  </div>
 
   <!--
               <p>
