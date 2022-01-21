@@ -75,7 +75,8 @@
 
 <template>
 
-  <h2>Бібліяграфія па беларускай мікратапаніміцы</h2>
+  <!-- <h2>Бібліяграфія па беларускай мікратапаніміцы</h2> -->
+  <Tag class="p-mb-4" severity="danger" icon="pi pi-exclamation-triangle"  value="Вядзецца распрацоўка. Апублікаваны пакуль толькі фрагмент бібліяграфіі"></Tag> 
 
   <!--
           <div class="p-field p-mx-auto p-text-center">
@@ -121,11 +122,11 @@
   </div>
 
   <div v-for="(item, key) in bib" class="p-shadow-11 item" :key="key"> 
-  <i :class="'pi pi-'+ (item.type==='Кніга'?'book':'file-o')" :title="item.type"></i>
+	<i :class="'pi pi-'+ (item.type==='Кніга'?'book':'file-o')" :title="item.type" class="p-mr-1"></i>
   {{item.title}}
   <a v-if="item.link" :href="item.link" style="color:blue;" target="_blank"><i class='pi pi-external-link' title="Спасылка на файл публікацыі"></i></a>
   <!-- <Tag class="p-ml-2" severity="info" :value="item.type" rounded></Tag> -->
-  <div class="p-ml-2" v-if="item.meta">
+  <div class="p-ml-4" v-if="item.meta">
 	<small>{{item.meta}}</small>
   </div>
 	
