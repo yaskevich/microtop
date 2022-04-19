@@ -1,22 +1,22 @@
 {
   "name": "microtop",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource/open-sans": "^4.5.2",
+    "@fontsource/open-sans": "^4.5.8",
     "primeflex": "^2.0.0",
     "primeicons": "^5.0.0",
-    "primevue": "^3.10.0",
-    "vue": "^3.2.25"
+    "primevue": "^3.12.5",
+    "vue": "^3.2.33"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.0.0",
-    "typescript": "^4.4.4",
-    "vite": "^2.7.10",
-    "vue-tsc": "^0.29.8"
+    "@vitejs/plugin-vue": "^2.3.1",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.5",
+    "vue-tsc": "^0.34.7"
   }
 }
