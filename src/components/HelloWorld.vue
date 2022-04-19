@@ -75,17 +75,20 @@
 
 <template>
 
-  <!-- <h2>Бібліяграфія па беларускай мікратапаніміцы</h2> -->
-  <Tag class="p-mb-4" severity="danger" icon="pi pi-exclamation-triangle"  value="Вядзецца распрацоўка. Апублікаваны пакуль толькі фрагмент бібліяграфіі"></Tag> 
-
+  <h2>Бібліяграфія па беларускай мікратапаніміцы</h2>
   <!--
-          <div class="p-field p-mx-auto p-text-center">
-              <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
-              <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
-          </div>
-          -->
+  <Tag class="p-mb-4"
+       severity="danger"
+       icon="pi pi-exclamation-triangle"
+       value="Вядзецца распрацоўка. Апублікаваны пакуль толькі фрагмент бібліяграфіі"></Tag>
+
+  <div class="p-field p-mx-auto p-text-center">
+      <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
+      <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
+  </div>
+  -->
   <div class="p-grid p-mb-4">
-    <div class="p-col p-col-fixed">
+    <div class="p-col p-col-fixed" style="min-width:80px;">
       <Badge :value="bib.length" size="large"></Badge>
     </div>
     <div class="p-col p-col-fixed">
@@ -98,68 +101,70 @@
                        @change="processCascadeSelect">
           <template #option="slotProps">
             <div class="country-item">
-                <template v-if="slotProps.option?.parent">
-                    <span>Уся вобласць</span>
-                    <hr style="margin-bottom: -.5rem;" />
-                </template>
-          <template v-else>
-                  <span>{{renderLabel(slotProps.option)}}</span>
-                </template>
-      </div>
-      </template>
+              <template v-if="slotProps.option?.parent">
+                <span>Уся вобласць</span>
+                <hr style="margin-bottom: -.5rem;" />
+              </template>
+              <template v-else>
+                <span>{{renderLabel(slotProps.option)}}</span>
+              </template>
+            </div>
+          </template>
       </CascadeSelect>
-      <Button icon="pi pi-refresh"
+      <!-- pi-undo -->
+      <Button icon="pi pi-times-circle"
               :class="selectedArea?'p-button-text':'p-d-none'"
               @click="bib = bibliography;selectedArea = ''" />
     </div>
   </div>
   <!--
-      <div class="p-col">
-        <Button :disabled="!selectedArea" label="Ачысціць" class="p-ml-2 p-button-raised p-button-text" @click="bib = bibliography;selectedArea = ''" />
+        <div class="p-col">
+          <Button :disabled="!selectedArea" label="Ачысціць" class="p-ml-2 p-button-raised p-button-text" @click="bib = bibliography;selectedArea = ''" />
+        </div>
+              -->
+
+  </div>
+
+  <template v-for="(item, key) in bib" :key="key">
+    <div v-if="key && bib[key - 1]['title'] !== item.title" class="p-shadow-11 item">
+      <i :class="'pi pi-'+ (item.type==='Кніга'?'book':'file-o')" :title="item.type" class="p-mr-1"></i>
+      {{item.title}}
+      <a v-if="item.link" :href="item.link" style="color:blue;" target="_blank"><i class='pi pi-external-link' title="Спасылка на файл публікацыі"></i></a>
+      <!-- <Tag class="p-ml-2" severity="info" :value="item.type" rounded></Tag> -->
+      <div class="p-ml-4" v-if="item.meta">
+        <small>{{item.meta}}</small>
       </div>
-            -->
-
-  </div>
-
-  <div v-for="(item, key) in bib" class="p-shadow-11 item" :key="key"> 
-	<i :class="'pi pi-'+ (item.type==='Кніга'?'book':'file-o')" :title="item.type" class="p-mr-1"></i>
-  {{item.title}}
-  <a v-if="item.link" :href="item.link" style="color:blue;" target="_blank"><i class='pi pi-external-link' title="Спасылка на файл публікацыі"></i></a>
-  <!-- <Tag class="p-ml-2" severity="info" :value="item.type" rounded></Tag> -->
-  <div class="p-ml-4" v-if="item.meta">
-	<small>{{item.meta}}</small>
-  </div>
-	
-  </div>
+    </div>
+  </template>
 
   <!--
-              <p>
-                Вядзецца распрацоўка праекта...
-              </p>
-              <p>
-                Неўзабаве ўсё будзе!
-              </p>
-          -->
+                <p>
+                  Вядзецца распрацоўка праекта...
+                </p>
+                <p>
+                  Неўзабаве ўсё будзе!
+                </p>
+            -->
 
 </template>
 
 <style scoped>
 
   /*
-        label {
-          margin: 0 0.5em;
-          font-weight: bold;
-        }
+          label {
+            margin: 0 0.5em;
+            font-weight: bold;
+          }
 
-        .p-field * {
-          display: block;
-        }
-      */
+          .p-field * {
+            display: block;
+          }
+        */
   .item {
     margin-bottom: 1rem;
     padding: 5px;
     /* background: darkred;
-              color:white; */
+                color:white; */
   }
 
 </style>
