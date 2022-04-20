@@ -95,7 +95,7 @@
   -->
   <div class="p-grid p-mb-4">
     <div class="p-col p-col-fixed" style="min-width:80px;">
-      <Badge :value="bib.length" size="large"></Badge>
+      <Badge :value="[...new Set(bib.map(x=>x.title))].length - (selectedArea? 1: 0)" size="large"></Badge>
     </div>
     <div class="p-col p-col-fixed">
       <div class="p-inputgroup">
