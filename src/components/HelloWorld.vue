@@ -62,6 +62,12 @@
     }
   }
 
+  for (let item of admTree.sort((a,b) => a.name.localeCompare(b.name))) {
+      const header = (item as ICascadeItem).children.shift() as ICascadeChild;
+      item.children.sort((a,b) => a.name.localeCompare(b.name));
+      item.children.unshift(header);
+  }
+
   const processCascadeSelect = (item: any) => {
     // console.log(item);
     bib.value = bibliography.filter(x => x[item.value?.parent ? 'region' : 'district'] === item.value.name);
