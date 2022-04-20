@@ -19,11 +19,13 @@
     name: string;
     level: number;
     parent?: boolean;
+    label: string;
   }
 
   interface ICascadeItem {
     name: string;
     level: number;
+    label: string;
     children: Array<ICascadeChild>;
   }
 
@@ -51,25 +53,25 @@
     if (node.length) {
       const child = node[0]['children'];
       if (!child.filter(x => x.name === item.district).length) {
-        child.push({ name: item.district, level: 3 } as ICascadeChild);
+        child.push({ name: item.district, level: 3, label: `${item.district} раён` } as ICascadeChild);
       }
     } else {
       admTree.push({
         name: item.region,
         level: 2,
-        children: [{ name: item.region, level: 2, parent: true }, { name: item.district, level: 3 } as ICascadeChild],
+        label: `${item.region} вобласць`,
+        children: [{ name: item.region, level: 2, parent: true, label: `${item.region} вобласць`, }, { name: item.district, level: 3, label: `${item.district} раён` } as ICascadeChild],
       } as ICascadeItem);
     }
   }
-
-  for (let item of admTree.sort((a,b) => a.name.localeCompare(b.name))) {
-      const header = (item as ICascadeItem).children.shift() as ICascadeChild;
+  
+  for (let item of admTree.sort((a,b) => a.name.localeCompare(b.name)) as Array<ICascadeItem>) {
+      const header = item.children.shift() as ICascadeChild;
       item.children.sort((a,b) => a.name.localeCompare(b.name));
       item.children.unshift(header);
   }
 
   const processCascadeSelect = (item: any) => {
-    // console.log(item);
     bib.value = bibliography.filter(x => x[item.value?.parent ? 'region' : 'district'] === item.value.name);
   };
 
@@ -101,7 +103,7 @@
       <div class="p-inputgroup">
         <CascadeSelect v-model="selectedArea"
                        :options="admTree"
-                       :optionLabel="renderLabel"
+                       optionLabel="label"
                        :optionGroupChildren="['children']"
                        placeholder="Абярыце арэал"
                        @change="processCascadeSelect">
