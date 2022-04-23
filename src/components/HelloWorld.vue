@@ -64,7 +64,7 @@
       } as ICascadeItem);
     }
   }
-  
+
   for (let item of admTree.sort((a,b) => a.name.localeCompare(b.name)) as Array<ICascadeItem>) {
       const header = item.children.shift() as ICascadeChild;
       item.children.sort((a,b) => a.name.localeCompare(b.name));
@@ -78,6 +78,16 @@
   const renderLabel = (item: ICascadeChild | ICascadeItem) => {
     return item.name + ' ' + (item.level === 3 ? 'раён' : 'вобласць');
   };
+
+  const selectTypeIcon = (name:string) => {
+    if  (name === 'Кніга') {
+      return 'pi pi-book';
+    } else if (name === 'Рукапіс') {
+      return 'pi pi-pencil';
+    }
+    return 'pi pi-file-o';
+  }
+
 
 </script>
 
@@ -135,7 +145,7 @@
 
   <template v-for="(item, key) in bib" :key="key">
     <div v-if="key && bib[key - 1]['title'] !== item.title" class="p-shadow-11 item">
-      <i :class="'pi pi-'+ (item.type==='Кніга'?'book':'file-o')" :title="item.type" class="p-mr-1"></i>
+      <i :class="selectTypeIcon(item.type)" :title="item.type" class="p-mr-1"></i>
       {{item.title}}
       <a v-if="item.link" :href="item.link" style="color:blue;" target="_blank"><i class='pi pi-external-link' title="Спасылка на файл публікацыі"></i></a>
       <!-- <Tag class="p-ml-2" severity="info" :value="item.type" rounded></Tag> -->
