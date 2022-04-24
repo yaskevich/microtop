@@ -116,7 +116,7 @@
     </div>
     <div class="p-ml-auto">
       <div>
-        <Button :icon="'pi pi-' + (showInfo ? 'plus': 'minus')" :title="(showInfo ? 'разгарнуць': 'згарнуць')"
+        <Button :icon="'pi pi-' + (showInfo ? 'minus': 'plus')" :title="(showInfo ? 'згарнуць': 'разгарнуць')"
          class="p-button-rounded"  @click="showInfo = !showInfo"/>
       </div>
     </div>
