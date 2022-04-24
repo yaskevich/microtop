@@ -90,40 +90,36 @@
     return 'pi pi-file-o';
   };
 
-
 </script>
 
 <template>
 
   <h2>Бібліяграфія па беларускай мікратапаніміцы</h2>
   <!--
-  <Tag class="p-mb-4"
+  <Tag class="mb-4"
        severity="danger"
        icon="pi pi-exclamation-triangle"
        value="Вядзецца распрацоўка. Апублікаваны пакуль толькі фрагмент бібліяграфіі"></Tag>
 
-  <div class="p-field p-mx-auto p-text-center">
-      <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="p-d-block p-mx-auto" />
+  <div class="field mx-auto text-center">
+      <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="d-block mx-auto" />
       <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
   </div>
   -->
 
-  <div class="p-d-flex ">
-    <div class="p-mr-2">
-      <div class="p-pl-4 p-text-bold">
+  <div class="flex justify-content-between flex-wrap mb-4" style="max-width:250px;">
+    <div class="flex align-items-center justify-content-center mr-2 font-bold">
       Ад укладальніка
-      </div>
     </div>
-    <div class="p-ml-auto">
+    <div class="flex align-items-center justify-content-center ml-auto">
       <div>
         <Button :icon="'pi pi-' + (showInfo ? 'minus': 'plus')" :title="(showInfo ? 'згарнуць': 'разгарнуць')"
-         class="p-button-rounded"  @click="showInfo = !showInfo"/>
+         class="p-button-link p-button-sm"  @click="showInfo = !showInfo"/>
       </div>
     </div>
   </div>
 
-
-    <div class="p-pl-4 p-pr-4 p-mb-4" v-if="showInfo">
+    <div class="mb-4" v-if="showInfo">
       <p>
         Храналагічны дыяпазон прадстаўленых у бібліяграфіі публікацый — 1959–2021 гг. На дадзеным этапе ўлічваліся толькі тыя працы, якія апублікаваны на тэрыторыі Беларусі, утрымліваюць лакалізаваны матэрыял (г. зн. абавязкова ўказаны прынамсі раён(-ы)) і змяшчаюць тры і больш назваў дробных геаграфічных аб’ектаў. Публікацыі, прысвечаныя разгляду тапонімаў з архіўных крыніц і помнікаў пісьменства, у базу не ўключаліся. Акрамя таго, не ўлічваліся працы па гісторыі і крыніцы фальклорна-этнаграфічнага характару, якія часам таксама ўтрымліваюць мікратапонімы.
       </p>
@@ -136,13 +132,11 @@
       <hr/>
     </div>
 
-
-
-  <div class="p-grid p-mb-4">
-    <div class="p-col p-col-fixed" style="min-width:80px;">
+  <div class="grid mb-4">
+    <div class="col col-fixed" style="min-width:80px;">
       <Badge :value="[...new Set(bib.map(x=>x.title))].length - (selectedArea? 1: 0)" size="large"></Badge>
     </div>
-    <div class="p-col p-col-fixed">
+    <div class="col col-fixed">
       <div class="p-inputgroup">
         <CascadeSelect v-model="selectedArea"
                        :options="admTree"
@@ -150,39 +144,39 @@
                        :optionGroupChildren="['children']"
                        placeholder="Абярыце арэал"
                        @change="processCascadeSelect">
-          <template #option="slotProps">
-            <div class="country-item">
-              <template v-if="slotProps.option?.parent">
-                <span>Уся вобласць</span>
-                <hr style="margin-bottom: -.5rem;" />
-              </template>
-              <template v-else>
-                <span>{{renderLabel(slotProps.option)}}</span>
-              </template>
-            </div>
-          </template>
-      </CascadeSelect>
-      <!-- pi-undo -->
-      <Button icon="pi pi-times-circle"
-              :class="selectedArea?'p-button-text':'p-d-none'"
-              @click="bib = bibliography;selectedArea = ''" />
+            <template #option="slotProps">
+              <div class="country-item">
+                <template v-if="slotProps.option?.parent">
+                  <span>Уся вобласць</span>
+                  <hr style="margin-bottom: -.5rem;" />
+                </template>
+                <template v-else>
+                  <span>{{renderLabel(slotProps.option)}}</span>
+                </template>
+              </div>
+            </template>
+        </CascadeSelect>
+        <!-- pi-undo -->
+        <Button icon="pi pi-times-circle"
+                :class="selectedArea?'p-button-text':'hidden'"
+                @click="bib = bibliography;selectedArea = ''" />
+      </div>
     </div>
-  </div>
   <!--
-        <div class="p-col">
-          <Button :disabled="!selectedArea" label="Ачысціць" class="p-ml-2 p-button-raised p-button-text" @click="bib = bibliography;selectedArea = ''" />
+        <div class="col">
+          <Button :disabled="!selectedArea" label="Ачысціць" class="ml-2 p-button-raised p-button-text" @click="bib = bibliography;selectedArea = ''" />
         </div>
               -->
 
   </div>
 
   <template v-for="(item, key) in bib" :key="key">
-    <div v-if="key && bib[key - 1]['title'] !== item.title" class="p-shadow-11 item">
-      <i :class="selectTypeIcon(item.type)" :title="item.type" class="p-mr-1"></i>
+    <div v-if="key && bib[key - 1]['title'] !== item.title" class="shadow-8 item">
+      <i :class="selectTypeIcon(item.type)" :title="item.type" class="mr-1"></i>
       {{item.title}}
       <a v-if="item.link" :href="item.link" style="color:blue;" target="_blank"><i class='pi pi-external-link' title="Спасылка на файл публікацыі"></i></a>
-      <!-- <Tag class="p-ml-2" severity="info" :value="item.type" rounded></Tag> -->
-      <div class="p-ml-4" v-if="item.meta">
+      <!-- <Tag class="ml-2" severity="info" :value="item.type" rounded></Tag> -->
+      <div class="ml-4" v-if="item.meta">
         <small>{{item.meta}}</small>
       </div>
     </div>
