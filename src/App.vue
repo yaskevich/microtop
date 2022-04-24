@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import Home from './components/Home.vue'
 </script>
 
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
   <div class="content">
-    <HelloWorld />
+    <Home />
   </div>
   <div class="footer">
     <p>
