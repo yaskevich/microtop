@@ -134,7 +134,7 @@
 
   <div class="grid mb-4">
     <div class="col col-fixed" style="min-width:80px;">
-      <Badge :value="[...new Set(bib.map(x=>x.title))].length - (selectedArea? 1: 0)" size="large"></Badge>
+      <Badge :value="[...new Set(bib.map(x=>x.title))].length" size="large"></Badge>
     </div>
     <div class="col col-fixed">
       <div class="p-inputgroup">
@@ -171,12 +171,12 @@
   </div>
 
   <template v-for="(item, key) in bib" :key="key">
-    <div v-if="key && bib[key - 1]['title'] !== item.title" class="shadow-8 item">
+    <div v-if="!key || (key && bib[key - 1]['title'] !== item.title)" class="shadow-8 item">
       <i :class="selectTypeIcon(item.type)" :title="item.type" class="mr-1"></i>
       {{item.title}}
       <a v-if="item.link" :href="item.link" style="color:blue;" target="_blank"><i class='pi pi-external-link' title="Спасылка на файл публікацыі"></i></a>
       <!-- <Tag class="ml-2" severity="info" :value="item.type" rounded></Tag> -->
-      <div class="ml-4" v-if="item.meta">
+      <div class="ml-4" v-if="selectedArea && item.meta" >
         <small>{{item.meta}}</small>
       </div>
     </div>
