@@ -44,7 +44,7 @@
   //   }
   // }
 
-  const selectedArea = ref('');
+  const selectedArea = ref({} as ICascadeItem);
   const admTree = reactive([] as Array<ICascadeItem>);
 
   const showInfo = ref(false);
@@ -72,6 +72,11 @@
       item.children.sort((a,b) => a.name.localeCompare(b.name));
       item.children.unshift(header);
   }
+
+  const dropSelection = () => {
+    bib.value = bibliography;
+    selectedArea.value = {} as ICascadeItem;
+  };
 
   const processCascadeSelect = (item: any) => {
     bib.value = bibliography.filter(x => x[item.value?.parent ? 'region' : 'district'] === item.value.name);
@@ -158,8 +163,8 @@
         </CascadeSelect>
         <!-- pi-undo -->
         <Button icon="pi pi-times-circle"
-                :class="selectedArea?'p-button-text':'hidden'"
-                @click="bib = bibliography;selectedArea = ''" />
+                :class="selectedArea?.level ? 'p-button-text' : 'hidden'"
+                @click="dropSelection" />
       </div>
     </div>
   <!--
@@ -176,7 +181,7 @@
       {{item.title}}
       <a v-if="item.link" :href="item.link" style="color:blue;" target="_blank"><i class='pi pi-external-link' title="Спасылка на файл публікацыі"></i></a>
       <!-- <Tag class="ml-2" severity="info" :value="item.type" rounded></Tag> -->
-      <div class="ml-4" v-if="selectedArea && item.meta" >
+      <div class="ml-4" v-if="selectedArea?.level === 3 && item.meta" >
         <small>{{item.meta}}</small>
       </div>
     </div>
