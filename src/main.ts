@@ -6,6 +6,7 @@ import Button from 'primevue/button';
 import Tag from 'primevue/tag';
 import CascadeSelect from 'primevue/cascadeselect';
 import Badge from 'primevue/badge';
+import Card from 'primevue/card';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import 'primevue/resources/themes/saga-blue/theme.css';
@@ -21,6 +22,7 @@ const app = createApp(App);
 app.component('Button', Button);
 app.component('Badge', Badge);
 app.component('Tag', Tag);
+app.component('Card', Card);
 // app.component('InputText', InputText);
 app.component('CascadeSelect', CascadeSelect);
 

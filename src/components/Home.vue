@@ -74,7 +74,7 @@ const selectTypeIcon = (name: string) => {
 
   <div class="mb-4" v-if="showInfo">
     <Description />
-    <hr />
+    <!-- <hr /> -->
   </div>
 
   <div class="grid mb-4">
