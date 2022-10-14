@@ -4,6 +4,7 @@ import store from './store';
 </script>
 
 <template>
+  <ScrollTop />
   <div class="container">
     <div class="content">
       <Home />
