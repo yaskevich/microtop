@@ -60,7 +60,7 @@ const selectTypeIcon = (name: string) => {
   -->
 
   <div class="grid font-bold">
-    <div class="col" style="min-width: 350px"><a style="text-decoration: none" href="#footer">Пра праект</a></div>
+    <div class="col" style="min-width: 350px"><a style="text-decoration: none" href="#about">Пра праект</a></div>
     <div class="col flex justify-content-between flex-wrap" style="min-width: 350px">
       <div class="flex align-items-center justify-content-center mr-2">Ад укладальніка</div>
       <div class="flex align-items-center justify-content-center ml-auto">
