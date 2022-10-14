@@ -8,7 +8,7 @@ import store from './store';
     <div class="content">
       <Home />
     </div>
-    <div class="footer">
+    <div class="footer" id="footer">
       <p>
         ☼ <a href="https://philology.by/" target="_blank">Philology.BY</a>, 2022. Версія: {{ store.version }}
         <a :href="store.git" target="_blank">
