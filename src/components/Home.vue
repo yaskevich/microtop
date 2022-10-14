@@ -39,6 +39,8 @@ const renderLabel = (item: ICascadeChild | ICascadeItem) => {
   return item.name + ' ' + (item.level === 3 ? 'раён' : 'вобласць');
 };
 
+const tooggleBlock = () => (showInfo.value = !showInfo.value);
+
 const selectTypeIcon = (name: string) => {
   if (name === 'Кніга') {
     return 'pi pi-book';
@@ -55,20 +57,22 @@ const selectTypeIcon = (name: string) => {
   <!--
   <div class="field mx-auto text-center">
       <InputText id="search" aria-describedby="search-help" type="text" v-model="userinput" @input="inputEvent" class="d-block mx-auto" />
-      <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>
+      <small id="search-help">Увядзіце больш за 2 знакі. <br/>Вынік адлюстроўваецца імгненна</small>u
   </div>
   -->
 
-  <div class="grid font-bold">
-    <div class="col" style="min-width: 350px"><a style="text-decoration: none" href="#about">Пра праект</a></div>
+  <div class="grid">
+    <div class="col font-bold" style="min-width: 350px"><a href="#about">Пра праект</a></div>
     <div class="col flex justify-content-between flex-wrap" style="min-width: 350px">
-      <div class="flex align-items-center justify-content-center mr-2">Ад укладальніка</div>
-      <div class="flex align-items-center justify-content-center ml-auto">
+      <div class="flex align-items-center justify-content-center mr-2">
+        <Button label="Ад укладальніка" class="p-button-text p-button-plain font-bold" @click="tooggleBlock" />
+      </div>
+      <div class="flex align-items-center justify-content-center ml-auto mr-4">
         <Button
           :icon="'pi pi-' + (showInfo ? 'minus' : 'plus')"
           :title="showInfo ? 'згарнуць' : 'разгарнуць'"
           class="p-button-link p-button-sm"
-          @click="showInfo = !showInfo" />
+          @click="tooggleBlock" />
       </div>
     </div>
   </div>

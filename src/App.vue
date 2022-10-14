@@ -9,28 +9,22 @@ import store from './store';
     <div class="content">
       <Home />
     </div>
-    <div class="footer" id="about">
+    <div class="footer p-2" id="about">
       <p>
-        ☼ <a href="https://philology.by/" target="_blank">Philology.BY</a>, 2022. Версія: {{ store.version }}
+        <a href="https://philology.by/" target="_blank">Philology.BY</a>, 2022. Версія: {{ store.version }}
         <a :href="store.git" target="_blank">
           <i class="pi pi-github"></i>
         </a>
       </p>
       <p>
         Падрыхтоўка дадзеных —
-        <a
-          href="https://philology.by/shkliaryk"
-          target="_blank"
-        >Вадзім Шклярык</a>. Лічбавы праект —
+        <a href="https://philology.by/shkliaryk" target="_blank">Вадзім Шклярык</a>. Лічбавы праект —
         <a href="https://yaskevich.com/" target="_blank">Аляксей Яскевіч</a>.
       </p>
       <p>
         <small>
           Значок «Place Marker» узяты з сайта
-          <a
-            href="https://icons8.com/icon/30622/place-marker"
-            target="_blank"
-          >Icons8</a>.
+          <a href="https://icons8.com/icon/30622/place-marker" target="_blank">Icons8</a>.
         </small>
       </p>
     </div>
@@ -39,7 +33,7 @@ import store from './store';
 
 <style>
 #app {
-  font-family: "Open Sans", sans-serif !important;
+  font-family: 'Open Sans', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: left; */
@@ -59,6 +53,7 @@ import store from './store';
 a {
   color: gray;
   font-weight: bold;
+  text-decoration: none;
 }
 .container {
   max-width: 900px;
