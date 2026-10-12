@@ -1,6 +1,6 @@
 {
   "name": "microtop",
-  "version": "0.0.4",
+  "version": "5",
   "description": "Application to represent bibliography on Belarusian microtoponymy",
   "author": "Alyaxey Yaskevich",
   "repository": {
@@ -14,24 +14,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource/open-sans": "^4.5.14",
-    "@types/topojson-client": "^3.1.1",
-    "d3": "^7.8.2",
-    "primeflex": "^3.3.0",
-    "primeicons": "^6.0.1",
+    "@fontsource/open-sans": "^5.3.0",
+    "@types/topojson-client": "^3.1.5",
+    "d3": "^7.9.0",
+    "primeflex": "^4.0.0",
+    "primeicons": "^8.0.2",
     "primevue": "^3.25.0",
     "topojson-client": "^3.1.0",
-    "vue": "^3.2.47"
+    "vue": "^3.5.43",
+    "vue-router": "^5.4.0"
   },
   "devDependencies": {
-    "@babel/types": "^7.21.3",
-    "@types/d3": "^7.4.0",
-    "@types/topojson": "^3.2.3",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "sass": "^1.59.3",
-    "typescript": "^5.0.2",
-    "vite": "^4.2.0",
-    "vite-ssg": "^0.22.1",
-    "vue-tsc": "^1.2.0"
+    "@babel/types": "^8.0.6",
+    "@types/d3": "^7.4.3",
+    "@types/topojson": "^3.2.6",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "sass": "^1.105.1",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.4",
+    "vite-ssg": "^28.3.0",
+    "vue-tsc": "^3.3.13"
   }
 }
