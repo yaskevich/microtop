@@ -68,11 +68,8 @@ const selectTypeIcon = (name: string) => {
         <Button label="Ад укладальніка" class="p-button-text p-button-plain font-bold" @click="tooggleBlock" />
       </div>
       <div class="flex align-items-center justify-content-center ml-auto mr-4">
-        <Button
-          :icon="'pi pi-' + (showInfo ? 'minus' : 'plus')"
-          :title="showInfo ? 'згарнуць' : 'разгарнуць'"
-          class="p-button-link p-button-sm"
-          @click="tooggleBlock" />
+        <Button :icon="'pi pi-' + (showInfo ? 'minus' : 'plus')" :title="showInfo ? 'згарнуць' : 'разгарнуць'"
+          class="p-button-link p-button-sm" @click="tooggleBlock" />
       </div>
     </div>
   </div>
@@ -83,17 +80,12 @@ const selectTypeIcon = (name: string) => {
 
   <div class="grid mb-4">
     <div class="col col-fixed" style="min-width: 80px">
-      <Badge :value="[...new Set(bibliographySelection.map(x => x.title))].length" size="large"></Badge>
+      <Badge :value="[...new Set(bibliographySelection.map((x: IBibItem) => x.title))].length" size="large"></Badge>
     </div>
     <div class="col col-fixed">
       <div class="p-inputgroup">
-        <CascadeSelect
-          v-model="selectedArea"
-          :options="store.options"
-          optionLabel="label"
-          :optionGroupChildren="['children']"
-          placeholder="Абярыце арэал"
-          @change="processCascadeSelect">
+        <CascadeSelect v-model="selectedArea" :options="store.options" optionLabel="label"
+          :optionGroupChildren="['children']" placeholder="Абярыце арэал" @change="processCascadeSelect">
           <template #option="slotProps">
             <div class="country-item">
               <template v-if="slotProps.option?.parent">
@@ -107,9 +99,7 @@ const selectTypeIcon = (name: string) => {
           </template>
         </CascadeSelect>
         <!-- pi-undo -->
-        <Button
-          icon="pi pi-times-circle"
-          :class="selectedArea?.level ? 'p-button-text' : 'hidden'"
+        <Button icon="pi pi-times-circle" :class="selectedArea?.level ? 'p-button-text' : 'hidden'"
           @click="dropSelection" />
       </div>
     </div>
@@ -120,7 +110,9 @@ const selectTypeIcon = (name: string) => {
     -->
   </div>
 
-  <template v-for="(item, key) in bibliographySelection" :key="key">
+  <template
+    v-for="(item, key) in bibliographySelection.sort((a: IBibItem, b: IBibItem) => a.title.localeCompare(b.title))"
+    :key="key">
     <div v-if="!key || (key && bibliographySelection[key - 1]['title'] !== item.title)" class="shadow-8 item">
       <i :class="selectTypeIcon(item.type)" :title="item.type" class="mr-1"></i>
       {{ item.title }}
