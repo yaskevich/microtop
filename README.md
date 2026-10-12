@@ -8,7 +8,14 @@ One can download the repository, run `npm install` and then `npm run build` to g
 
 The project content is stored in [src/bibliography.json](src/bibliography.json). One can put own data with the same structure and get them rendered via the app.
 
+- compile the project based on CSV file: `./json.sh`
+- publish the project:
 
+`npx wrangler pages deploy dist`
+
+or
+
+`npx wrangler pages deploy dist --commit-dirty=true --branch master`
 
 :space_invader:
 
