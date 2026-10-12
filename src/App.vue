@@ -11,7 +11,9 @@ import store from './store';
     </div>
     <div class="footer p-2" id="about">
       <p>
-        <a href="https://philology.by/" target="_blank">Philology.BY</a>, 2022. Версія: {{ store.version }}
+        <a href="https://philology.by/" target="_blank">Philology.BY</a>, 2022&ndash;{{ store.buildDate.substring(0,
+          4) }}. Версія: {{
+          store.version }}
         <a :href="store.git" target="_blank">
           <i class="pi pi-github"></i>
         </a>
@@ -41,11 +43,13 @@ import store from './store';
   /* margin-top: 60px; */
   padding: 2rem;
 }
+
 .footer {
   background: #f8f6f6;
   border-radius: 5px;
   padding: 5px;
 }
+
 .content {
   min-height: calc(100vh - 220px);
 }
@@ -55,6 +59,7 @@ a {
   font-weight: bold;
   text-decoration: none;
 }
+
 .container {
   max-width: 900px;
   margin: auto;

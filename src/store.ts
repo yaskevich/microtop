@@ -48,6 +48,7 @@ for (let geo of geofeatures) {
 
 export default {
     version: project?.version,
+    buildDate: __BUILD_DATE__,
     git,
     bibliography,
     options,
